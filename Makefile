@@ -2,6 +2,7 @@
 
 FUNCTION_TARGET = function
 PORT = 8080
+PROJECT_NAME = flutter-account-book
 
 # bin/server.dart is the generated target for lib/functions.dart
 bin/server.dart:
@@ -18,3 +19,11 @@ clean:
 
 run: build
 	dart run bin/server.dart --port=$(PORT) --target=$(FUNCTION_TARGET)
+
+deploy: build
+	gcloud run deploy function \
+		--source=. \
+		--project=$(PROJECT_NAME) \
+		--region=asia-northeast1  \
+		--platform=managed \
+		--allow-unauthenticated
