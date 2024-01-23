@@ -2,26 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug function",
+      "name": "Debug oncreateuser",
       "request": "launch",
       "program": "bin/server.dart",
       "type": "dart",
-      "args": ["--target=function"]
-    },
-    {
-      "name": "Debug function on 8888",
-      "request": "launch",
-      "program": "bin/server.dart",
-      "type": "dart",
-
-      "args": ["--target=function", "--port=8888"]
-    },
-    {
-      "name": "Debug function2",
-      "request": "launch",
-      "program": "bin/server.dart",
-      "type": "dart",
-      "args": ["--target=function2"]
+      "args": ["--target=oncreateuser", "--signature-type=cloudevent"]
     }
   ]
 }

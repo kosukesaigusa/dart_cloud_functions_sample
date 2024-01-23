@@ -1,7 +1,5 @@
 name: dart_cloud_functions_sample
 description: A sample "Hello, World!" Functions Framework project.
-# version: 0.1.0
-# homepage: https://www.example.com
 publish_to: none
 
 environment:
@@ -9,6 +7,7 @@ environment:
 
 dependencies:
   functions_framework: ^0.4.0
+  protobuf: ^3.1.0
   shelf: ^1.0.0
 
 dev_dependencies:

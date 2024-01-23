@@ -21,11 +21,8 @@ Future<void> main(List<String> args) async {
 }
 
 FunctionTarget? _nameToFunctionTarget(String name) => switch (name) {
-      'function' => FunctionTarget.http(
-          function_library.function,
-        ),
-      'function2' => FunctionTarget.http(
-          function_library.function2,
+      'oncreateuser' => FunctionTarget.cloudEventWithContext(
+          function_library.oncreateuser,
         ),
       _ => null
     };

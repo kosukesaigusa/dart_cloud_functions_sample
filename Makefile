@@ -1,10 +1,11 @@
+include secrets.mk
+
 .PHONY: clean
 
-FUNCTION_TARGET = function
-PORT = 8080
-PROJECT_NAME = flutter-account-book
+FUNCTION_TARGET = oncreateuser
+REGION = asia-northeast1
+FUNCTION_SIGNATURE_TYPE = cloudevent
 
-# bin/server.dart is the generated target for lib/functions.dart
 bin/server.dart:
 	dart run build_runner build --delete-conflicting-outputs
 
@@ -18,12 +19,22 @@ clean:
 	rm -rf bin/server.dart
 
 run: build
-	dart run bin/server.dart --port=$(PORT) --target=$(FUNCTION_TARGET)
+	dart run bin/server.dart --target=$(FUNCTION_TARGET) --signature-type=cloudevent
 
 deploy: build
-	gcloud run deploy function \
+	gcloud run deploy $(FUNCTION_TARGET) \
 		--source=. \
 		--project=$(PROJECT_NAME) \
-		--region=asia-northeast1  \
-		--platform=managed \
-		--allow-unauthenticated
+		--region=$(REGION)
+
+trigger:
+	gcloud eventarc triggers create $(FUNCTION_TARGET) \
+    --location=$(REGION) \
+    --destination-run-service=$(FUNCTION_TARGET) \
+    --event-filters="type=google.cloud.firestore.document.v1.created" \
+    --event-filters="database=(default)" \
+    --event-filters="namespace=(default)" \
+    --event-filters-path-pattern="document=users/*" \
+    --event-data-content-type="application/protobuf" \
+    --service-account="$(SERVICE_ACCOUNT_NAME)@$(PROJECT_NAME).iam.gserviceaccount.com" \
+		--project=$(PROJECT_NAME)
