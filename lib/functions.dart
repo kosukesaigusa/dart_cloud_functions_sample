@@ -11,7 +11,7 @@ void oncreateuser(CloudEvent event, RequestContext context) {
   final headers = context.request.headers;
   final eventDataRuntimeType = event.data.runtimeType;
   final xDataRunTimeTypes = context.responseHeaders['x-data-runtime-types'];
-  final eventData = event.data as List<int>;
+  final eventData = event.data! as List<int>;
 
   context.logger.info('subject: $subject');
   context.logger.info('headers: ${jsonEncode(headers)}');
@@ -22,7 +22,7 @@ void oncreateuser(CloudEvent event, RequestContext context) {
   context.responseHeaders['x-data-runtime-types'] =
       event.data.runtimeType.toString();
   final documentEventData =
-      DocumentEventData.fromBuffer(event.data as List<int>);
-  final json = documentEventData.toProto3Json() as Map<String, dynamic>;
+      DocumentEventData.fromBuffer(event.data! as List<int>);
+  final json = documentEventData.toProto3Json()! as Map<String, dynamic>;
   stderr.writeln(jsonEncode(json));
 }

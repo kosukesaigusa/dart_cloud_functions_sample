@@ -1,5 +1,3 @@
-library;
-
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -61,7 +59,6 @@ Future<TestProcess> _hostCloudEventHandler() async {
       '--target=oncreateuser',
       '--signature-type=cloudevent',
     ],
-    expectedListeningPort: 8080,
   );
   return proc;
 }
