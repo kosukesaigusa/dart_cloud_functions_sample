@@ -21,12 +21,16 @@ clean:
 run: build
 	dart run bin/server.dart --target=$(FUNCTION_TARGET) --signature-type=cloudevent
 
+
+# See: https://cloud.google.com/sdk/gcloud/reference/run/deploy
 deploy: build
 	gcloud run deploy $(FUNCTION_TARGET) \
 		--source=. \
+		--no-allow-unauthenticated \
 		--project=$(PROJECT_NAME) \
-		--region=$(REGION)
+		--region=$(REGION) 
 
+# See: https://cloud.google.com/sdk/gcloud/reference/eventarc/triggers/create
 trigger:
 	gcloud eventarc triggers create $(FUNCTION_TARGET) \
     --location=$(REGION) \
