@@ -10,5 +10,13 @@
     "source.organizeImports": "explicit",
     "quickfix.insertSemicolon": "explicit"
   },
-  "cSpell.words": ["protobuf"]
+  "cSpell.words": [
+    "cloudevent",
+    "dataschema",
+    "googleapis",
+    "oncreateuser",
+    "protobuf",
+    "redirector",
+    "specversion"
+  ]
 }

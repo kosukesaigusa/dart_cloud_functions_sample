@@ -19,6 +19,8 @@ void oncreateuser(CloudEvent event, RequestContext context) {
   context.logger.info('xDataRunTimeTypes: $xDataRunTimeTypes');
   context.logger.info('eventData: ${eventData.join(', ')}');
 
+  context.responseHeaders['x-data-runtime-types'] =
+      event.data.runtimeType.toString();
   final documentEventData =
       DocumentEventData.fromBuffer(event.data as List<int>);
   final json = documentEventData.toProto3Json() as Map<String, dynamic>;
