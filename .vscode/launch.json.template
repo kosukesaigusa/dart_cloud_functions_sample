@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug oncreateuser",
+      "request": "launch",
+      "program": "bin/server.dart",
+      "type": "dart",
+      "args": [
+        "--target=oncreateuser",
+        "--signature-type=cloudevent"
+      ],
+      "env": {
+        "ENVIRONMENT": "local",
+        "PROJECT_NAME": "your-project-name-here",
+        "CLIENT_ID": "your-client-id-here",
+        "CLIENT_EMAIL": "your-client-email-here",
+        "PRIVATE_KEY": "your-private-key-here"
+      }
+    }
+  ]
+}

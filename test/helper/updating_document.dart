@@ -1,15 +1,6 @@
 import 'dart:convert';
 
-/// This is a Firestore update record in protobuf
-final protobytes = base64Decode(
-  'CoIBClFwcm9qZWN0cy9kYXJ0LXJlZGlyZWN0b3IvZGF0YWJhc2VzLyhkZWZhdWx0KS9kb2N1bWVu'
-  'dHMvdXNlcnMvZ2hYTnRlUElGbWRET0JIM2lFTUgSEQoEbmFtZRIJigEGbHVjaWE0GgwI6+KupAYQ'
-  'iMa2qgIiDAjF1sukBhCY2qvFARKCAQpRcHJvamVjdHMvZGFydC1yZWRpcmVjdG9yL2RhdGFiYXNl'
-  'cy8oZGVmYXVsdCkvZG9jdW1lbnRzL3VzZXJzL2doWE50ZVBJRm1kRE9CSDNpRU1IEhEKBG5hbWUS'
-  'CYoBBmx1Y2lhMxoMCOvirqQGEIjGtqoCIgwI8o60pAYQmJa6igMaBgoEbmFtZQ==',
-);
-
-const jsonOutput = {
+const jsonOutputWhenUpdatingDocument = {
   'value': {
     'name':
         'projects/dart-redirector/databases/(default)/documents/users/ghXNtePIFmdDOBH3iEMH',
@@ -32,3 +23,12 @@ const jsonOutput = {
     'fieldPaths': ['name'],
   },
 };
+
+/// A record in protobuf when updating user document.
+final protobufBytesWhenUpdatingDocument = base64Decode(
+  'CoIBClFwcm9qZWN0cy9kYXJ0LXJlZGlyZWN0b3IvZGF0YWJhc2VzLyhkZWZhdWx0KS9kb2N1bWVu'
+  'dHMvdXNlcnMvZ2hYTnRlUElGbWRET0JIM2lFTUgSEQoEbmFtZRIJigEGbHVjaWE0GgwI6+KupAYQ'
+  'iMa2qgIiDAjF1sukBhCY2qvFARKCAQpRcHJvamVjdHMvZGFydC1yZWRpcmVjdG9yL2RhdGFiYXNl'
+  'cy8oZGVmYXVsdCkvZG9jdW1lbnRzL3VzZXJzL2doWE50ZVBJRm1kRE9CSDNpRU1IEhEKBG5hbWUS'
+  'CYoBBmx1Y2lhMxoMCOvirqQGEIjGtqoCIgwI8o60pAYQmJa6igMaBgoEbmFtZQ==',
+);

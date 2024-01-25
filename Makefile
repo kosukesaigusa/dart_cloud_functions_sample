@@ -38,7 +38,7 @@ trigger:
     --event-filters="type=google.cloud.firestore.document.v1.created" \
     --event-filters="database=(default)" \
     --event-filters="namespace=(default)" \
-    --event-filters-path-pattern="document=users/*" \
+    --event-filters-path-pattern="document=users/{userId}" \
     --event-data-content-type="application/protobuf" \
     --service-account="$(SERVICE_ACCOUNT_NAME)@$(PROJECT_NAME).iam.gserviceaccount.com" \
 		--project=$(PROJECT_NAME)

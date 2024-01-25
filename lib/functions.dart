@@ -3,10 +3,11 @@ import 'dart:io';
 
 import 'package:functions_framework/functions_framework.dart';
 
+import 'src/config.dart';
 import 'src/function_types.dart';
 
 @CloudFunction()
-void oncreateuser(CloudEvent event, RequestContext context) {
+Future<void> oncreateuser(CloudEvent event, RequestContext context) async {
   final subject = event.subject;
   final headers = context.request.headers;
   final eventDataRuntimeType = event.data.runtimeType;
@@ -25,4 +26,10 @@ void oncreateuser(CloudEvent event, RequestContext context) {
       DocumentEventData.fromBuffer(event.data! as List<int>);
   final json = documentEventData.toProto3Json()! as Map<String, dynamic>;
   stderr.writeln(jsonEncode(json));
+  final documentSnapshot = await firestore
+      .doc(
+        '/v2Expense/hWou6fxFY6MZcGFxpHKkYcH4Iym2/expenses/qjKzjA0bWIzuxbcnS807',
+      )
+      .get();
+  print(documentSnapshot);
 }
