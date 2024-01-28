@@ -28,7 +28,9 @@ deploy: build
 		--source=. \
 		--no-allow-unauthenticated \
 		--project=$(PROJECT_NAME) \
-		--region=$(REGION) 
+		--region=$(REGION) \
+		--set-env-vars=ENVIRONMENT=production \
+		--set-secrets=PROJECT_NAME=PROJECT_NAME:latest,CLIENT_ID=CLIENT_ID:latest,CLIENT_EMAIL=CLIENT_EMAIL:latest,PRIVATE_KEY=PRIVATE_KEY:latest
 
 # See: https://cloud.google.com/sdk/gcloud/reference/eventarc/triggers/create
 trigger:
