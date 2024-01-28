@@ -3,11 +3,17 @@ import 'dart:io';
 
 import 'package:functions_framework/functions_framework.dart';
 
+import 'environment_variable.dart';
 import 'src/config.dart';
 import 'src/function_types.dart';
 
 @CloudFunction()
 Future<void> oncreateuser(CloudEvent event, RequestContext context) async {
+  final environment = EnvironmentVariable.environment;
+  context.logger.info('environment: $environment');
+  final projectName = EnvironmentVariable.projectName;
+  context.logger.info('projectName: $projectName');
+
   final subject = event.subject;
   final headers = context.request.headers;
   final eventDataRuntimeType = event.data.runtimeType;
