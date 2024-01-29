@@ -1,0 +1,57 @@
+name: Deploy to Cloud Run from Source
+
+on:
+  push:
+    branches:
+      - main
+env:
+  PROJECT_ID: flutter-account-book
+  SERVICE: oncreateuser
+  REGION: asia-northeast1
+
+jobs:
+  deploy:
+    # Add 'id-token' with the intended permissions for workload identity federation
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      # NOTE: Alternative option - authentication via credentials json
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Build
+        run: |
+          dart pub get
+          dart pub run build_runner build --delete-conflicting-outputs
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          source: ./
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          env_vars: ENVIRONMENT=production
+          secrets: |
+            PROJECT_NAME=PROJECT_NAME:latest
+            CLIENT_ID=CLIENT_ID:latest
+            CLIENT_EMAIL=CLIENT_EMAIL:latest
+            PRIVATE_KEY=PRIVATE_KEY:latest
+
+      # If required, use the Cloud Run url output in later steps
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
