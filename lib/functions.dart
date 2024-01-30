@@ -1,41 +1,25 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:functions_framework/functions_framework.dart';
 
-import 'environment_variable.dart';
 import 'src/config.dart';
 import 'src/function_types.dart';
 
 @CloudFunction()
 Future<void> oncreateuser(CloudEvent event, RequestContext context) async {
-  final environment = EnvironmentVariable.environment;
-  context.logger.info('environment: $environment');
-  final projectName = EnvironmentVariable.projectName;
-  context.logger.info('projectName: $projectName');
-
-  final subject = event.subject;
-  final headers = context.request.headers;
-  final eventDataRuntimeType = event.data.runtimeType;
-  final xDataRunTimeTypes = context.responseHeaders['x-data-runtime-types'];
-  final eventData = event.data! as List<int>;
-
-  context.logger.info('subject: $subject');
-  context.logger.info('headers: ${jsonEncode(headers)}');
-  context.logger.info('eventDataRuntimeType: $eventDataRuntimeType');
-  context.logger.info('xDataRunTimeTypes: $xDataRunTimeTypes');
-  context.logger.info('eventData: ${eventData.join(', ')}');
-
-  context.responseHeaders['x-data-runtime-types'] =
-      event.data.runtimeType.toString();
   final documentEventData =
       DocumentEventData.fromBuffer(event.data! as List<int>);
   final json = documentEventData.toProto3Json()! as Map<String, dynamic>;
-  stderr.writeln(jsonEncode(json));
-  final documentSnapshot = await firestore
-      .doc(
-        '/v2Expense/hWou6fxFY6MZcGFxpHKkYcH4Iym2/expenses/qjKzjA0bWIzuxbcnS807',
-      )
-      .get();
-  print(documentSnapshot);
+  final documentId = ((json['value'] as Map<String, dynamic>)['name'] as String)
+      .split('/')
+      .last;
+  final message = (((json['value'] as Map<String, dynamic>)['fields']
+      as Map?)?['message'] as Map?)?['stringValue'] as String?;
+
+  context.logger.info('created documentId: $documentId');
+  context.logger.info('created message: $message');
+
+  final documentSnapshot =
+      await firestore.collection('users').doc(documentId).get();
+  await documentSnapshot.ref.update({
+    'message': '$message from server!',
+  });
 }
