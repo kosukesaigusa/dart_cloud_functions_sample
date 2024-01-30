@@ -3,7 +3,7 @@ import 'dart:convert';
 const jsonOutputWhenUpdatingDocument = {
   'value': {
     'name':
-        'projects/dart-redirector/databases/(default)/documents/users/ghXNtePIFmdDOBH3iEMH',
+        'projects/flutter-account-book/databases/(default)/documents/users/ghXNtePIFmdDOBH3iEMH',
     'fields': {
       'name': {'stringValue': 'lucia4'},
     },
@@ -12,7 +12,7 @@ const jsonOutputWhenUpdatingDocument = {
   },
   'oldValue': {
     'name':
-        'projects/dart-redirector/databases/(default)/documents/users/ghXNtePIFmdDOBH3iEMH',
+        'projects/flutter-account-book/databases/(default)/documents/users/ghXNtePIFmdDOBH3iEMH',
     'fields': {
       'name': {'stringValue': 'lucia3'},
     },
